@@ -24,7 +24,7 @@
 </template>
 
 <script>
-// import http from "../js/http-common";
+import http from "../js/http-common";
 
 export default {
   name: "VueAxiosPut",
@@ -38,7 +38,38 @@ export default {
       return JSON.stringify(res, null,2);
     },
 
-    async putData() {}
+    async putData() {
+      const { put_id, put_title, put_description, put_published} = this.$refs;
+      const id = put_id.value;
+
+      if(id) {
+        const putData = {
+          title: put_title.value,
+          description: put_description.value,
+          published: put_published.checked,
+        };
+
+        try {
+          const res = await http.put(`/tutorials/${id}`, putData, {
+            headers: {
+              "x-access-token" : "token-value",
+            },
+          });
+          const result = {
+            status: res.status + "-" + res.statusText,
+            headers: res.headers,
+            data: res.data,
+          };
+          this.putResult = this.formatResponse(result);
+        } catch (err) {
+          this.putResult = this.formatResponse(err.response?.data) || err;
+        }
+      }
+    },
+
+    clearPutOutput() {
+      this.putResult = null;
+    },
   }
 }
 </script>

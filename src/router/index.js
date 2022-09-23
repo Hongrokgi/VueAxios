@@ -2,6 +2,7 @@ import { createWebHistory, createRouter} from "vue-router";
 import VueAxios from "../components/VueAxios.vue";
 import VueAxiosPost from "@/components/VueAxiosPost";
 import VueAxiosPut from "@/components/VueAxiosPut";
+import VueAxiosDelete from "@/components/VueAxiosDelete";
 const routes = [
     {
         path: "/",
@@ -17,6 +18,11 @@ const routes = [
         path: "/put",
         name: "AxiosPut",
         component: VueAxiosPut,
+    },
+    {
+        path: "/delete",
+        name: "AxiosDelete",
+        component: VueAxiosDelete,
     }
 ];
 
